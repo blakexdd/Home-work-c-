@@ -1,4 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
 #include "Application_subsystem.h"
 
 
@@ -51,6 +52,20 @@ double Storage_unit::get_memory()
 	return memory;
 }
 
+void Storage_unit::info()
+{
+	std::cout << "Название: " << name << std::endl;
+	std::cout << "Общая память: " << memory << std::endl;
+	std::cout << "Оставщаяся память: " << remains_memory << std::endl;
+	std::cout << "Цена за гигабайт: " << price_per_gb << std::endl;
+}
+
+void DataCenter::info()
+{
+	Storage_unit::info();
+	std::cout << "Местоположение: " << location << std::endl;
+}
+
 void Storage_unit::allocate_memory(double wanted_memory)
 {
 	remains_memory = memory - wanted_memory;
@@ -64,6 +79,11 @@ double Storage_unit::get_remains_memory()
 std::vector<DataCenter> DataCenter::get_dclist()
 {
 	return dclist;
+}
+
+void DataCenter::show_unit_type()
+{
+	std::cout << "Type of storage unit is Datacenter";
 }
 
 DataCenter::DataCenter()

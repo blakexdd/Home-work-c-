@@ -15,27 +15,29 @@ public:
 
 	Storage_unit();
 
-
 	Storage_unit(std::string name, double memory, double price_per_gb);
 
-	virtual void set_name(std::string name);
+	void set_name(std::string name);
 
+	void set_memory(double memory);
 
-	virtual void set_memory(double memory);
+	void set_price_per_gb(double price_per_gb);
 
-	virtual void set_price_per_gb(double price_per_gb);
+	virtual void info();
 
-	virtual double get_price_per_gb();
+	double get_price_per_gb();
 
-	virtual void reset_memory();
+	void reset_memory();
 
-	virtual std::string get_name();
+	std::string get_name();
 
-	virtual double get_memory();
+	double get_memory();
 
-	virtual void allocate_memory(double wanted_memory);
+	void allocate_memory(double wanted_memory);
 
-	virtual double get_remains_memory();
+	double get_remains_memory();
+
+	virtual void show_unit_type() = 0;
 };
 
 class DataCenter : public Storage_unit
@@ -51,9 +53,15 @@ public:
 
 	void set_location(std::string location);
 
+	virtual void info();
+
 	static std::vector<DataCenter> get_dclist();
 
+	void show_unit_type();
+
 	static void add_dclist(DataCenter);
+
+	static void delete_dclist(DataCenter);
 
 	std::string get_location();
 };

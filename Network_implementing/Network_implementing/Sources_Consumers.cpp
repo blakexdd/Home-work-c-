@@ -10,15 +10,6 @@ Person::Person(std::string name, std::string surname, std::string middlename, st
 	this->date_of_birth = date_of_birth;
 }
 
-std::string Person::get_goods_info()
-{
-	std::stringstream st;
-
-	st << "This function print goods of the person";
-
-	return st.str();
-}
-
 
 void Person::set_name(std::string name)
 {
@@ -79,6 +70,27 @@ int Person::person_age()
 	return age;
 }
 
+void Person::info()
+{
+	std::cout << "Имя: " << name << std::endl;
+	std::cout << "Фамилия: " << surname << std::endl;
+	std::cout << "Отчество: " << middlename << std::endl;
+	std::cout << "Дата рождения: " << date_of_birth << std::endl;
+	std::cout << "Возраст: " << this->person_age() << std::endl;
+}
+
+void Consumer::info()
+{
+	Person::info();
+	std::cout << "Количество денег: " << money;
+}
+
+void Owner::info()
+{
+	Person::info();
+	std::cout << "Количество дата центров: " << datacenters_amount << std::endl;
+}
+
 Consumer::Consumer(std::string name, std::string surname, std::string middlename,
 	std::string date_of_birth, double money, std::string wanted_datacenter = " ", double wanted_memory = 0) :
 Person::Person(name, surname, middlename, date_of_birth)
@@ -90,36 +102,31 @@ Person::Person(name, surname, middlename, date_of_birth)
 
 std::string Consumer::buy_datacenter_memory(std::string datacenter_name, double memory)
 {
-	DataCenter buy_datacenter;
+	DataCenter *buy_datacenter;
 	std::stringstream st;
-
-	std::cout << "Person money: " << this->money << std::endl;
-	std::cout << "Person memory: " << memory << std::endl;
+	double price;
 
 	for (auto datacenter : DataCenter::get_dclist())
 		if (datacenter.get_name() == datacenter_name)
-			buy_datacenter = datacenter;
+		{
+			buy_datacenter = &datacenter, price = memory * buy_datacenter->get_price_per_gb();
 
-	std::cout << "Buy dc price per gb: " << buy_datacenter.get_price_per_gb() << std::endl;
+			if (buy_datacenter->get_remains_memory() <= memory)
+				return std::string("Not enought memory at datacenter");
 
-	double price = memory * buy_datacenter.get_price_per_gb();
+			if (this->money >= price)
+			{
+				this->money -= price;
+				buy_datacenter->allocate_memory(memory);
 
-	std::cout << "Price " << price << std::endl;
+				st << "Покупка совершена, остаток на счёте: " << this->money;
+			}
+			else
+			{
+				st << "Недостаточно средств на счёте";
+			}
+		}
 
-	if (buy_datacenter.get_remains_memory() <= memory)
-		return std::string("Not enought memory at datacenter");
-
-	if (this->money >= price)
-	{
-		this->money -= price;
-		buy_datacenter.allocate_memory(memory);
-
-		st << "Покупка совершена, остаток на счёте: " << this->money;
-	}
-	else
-	{
-		st << "Недостаточно средств на счёте";
-	}
 
 	return st.str();
 }

@@ -17,25 +17,27 @@ public:
 
 	Person(std::string name, std::string surname, std::string middlename, std::string date_of_birth);
 
-	virtual std::string get_goods_info();
+	virtual std::string get_goods_info() = 0;
 
-	virtual void set_name(std::string name);
+	virtual void info();
 
-	virtual void set_surname(std::string surname);
+	void set_name(std::string name);
 
-	virtual void set_middlename(std::string middlename);
+	void set_surname(std::string surname);
 
-	virtual void set_date_of_birth(std::string date_of_birth);
+	void set_middlename(std::string middlename);
 
-	virtual std::string get_name();
+	void set_date_of_birth(std::string date_of_birth);
 
-	virtual std::string get_surname();
+	std::string get_name();
 
-	virtual std::string get_middlename();
+	std::string get_surname();
 
-	virtual std::string get_date_of_birth();
+	std::string get_middlename();
 
-	virtual int person_age();
+	std::string get_date_of_birth();
+
+	int person_age();
 
 };
 
@@ -55,6 +57,8 @@ public:
 	std::string buy_datacenter_memory(std::string datacenter, double memory);
 
 	void set_wanted_datacenter(std::string wanted_datacenter);
+
+	virtual void info();
 
 	void set_wanted_memory(double wanter_memory);
 
@@ -87,6 +91,8 @@ public:
 	void set_datacenters(std::vector<DataCenter> datacenters);
 
 	virtual std::string get_goods_info();
+
+	virtual void info();
 
 	void set_datacenters_amount(int datacenters_amount);
 

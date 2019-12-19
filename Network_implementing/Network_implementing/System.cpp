@@ -13,49 +13,49 @@
 
 LRESULT CALLBACK MyWindowFunc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
 
-INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, CHAR *CmdLine, INT ShowCmd)
-{
-	WNDCLASS wc;
-	HWND hWnd;
-	MSG msg;
-
-	wc.style = CS_VREDRAW | CS_HREDRAW;
-	wc.cbClsExtra = 0;
-	wc.cbWndExtra = 0;
-	wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
-	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wc.hIcon = LoadIcon(NULL, IDI_ERROR);
-	wc.lpszMenuName = NULL;
-	wc.hInstance = hInstance;
-	wc.lpfnWndProc = MyWindowFunc;
-	wc.lpszClassName = WND_CLASS_NAME;
-
-	if (!RegisterClass(&wc))
-	{
-		MessageBox(NULL, "Error register window class", "ERROR", MB_OK);
-		return 0;
-	}
-	hWnd =
-		CreateWindow(WND_CLASS_NAME,
-			"Text",
-			WS_OVERLAPPEDWINDOW,
-			CW_USEDEFAULT, CW_USEDEFAULT,
-			CW_USEDEFAULT, CW_USEDEFAULT,
-			NULL,
-			NULL,
-			hInstance,
-			NULL);
-
-	ShowWindow(hWnd, SW_SHOWNORMAL);
-	UpdateWindow(hWnd);
-
-	while (GetMessage(&msg, NULL, 0, 0))
-	{
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-	}
-	return msg.wParam;
-}
+//INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, CHAR *CmdLine, INT ShowCmd)
+//{
+//	WNDCLASS wc;
+//	HWND hWnd;
+//	MSG msg;
+//
+//	wc.style = CS_VREDRAW | CS_HREDRAW;
+//	wc.cbClsExtra = 0;
+//	wc.cbWndExtra = 0;
+//	wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
+//	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+//	wc.hIcon = LoadIcon(NULL, IDI_ERROR);
+//	wc.lpszMenuName = NULL;
+//	wc.hInstance = hInstance;
+//	wc.lpfnWndProc = MyWindowFunc;
+//	wc.lpszClassName = WND_CLASS_NAME;
+//
+//	if (!RegisterClass(&wc))
+//	{
+//		MessageBox(NULL, "Error register window class", "ERROR", MB_OK);
+//		return 0;
+//	}
+//	hWnd =
+//		CreateWindow(WND_CLASS_NAME,
+//			"Text",
+//			WS_OVERLAPPEDWINDOW,
+//			CW_USEDEFAULT, CW_USEDEFAULT,
+//			CW_USEDEFAULT, CW_USEDEFAULT,
+//			NULL,
+//			NULL,
+//			hInstance,
+//			NULL);
+//
+//	ShowWindow(hWnd, SW_SHOWNORMAL);
+//	UpdateWindow(hWnd);
+//
+//	while (GetMessage(&msg, NULL, 0, 0))
+//	{
+//		TranslateMessage(&msg);
+//		DispatchMessage(&msg);
+//	}
+//	return msg.wParam;
+//}
 
 VOID  DrawEye(HDC hDc, INT X, INT Y, INT R, INT R1, INT mx, INT my)
 {
@@ -191,33 +191,130 @@ LRESULT CALLBACK MyWindowFunc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 	return DefWindowProc(hWnd, Msg, wParam, lParam);
 }
 
-//int main(void)
-//{
-//	SetConsoleCP(1251);
-//	SetConsoleOutputCP(1251);
-//
-//	DataCenter first("first", "St. Petesburg", 200, 28238);
-//	DataCenter second("second", "Moscow", 300, 29382);
-//
-//	std::vector<DataCenter> datacenters = { first, second };
-//
-//	Owner rich("Vladimir", "Gololobov", "Vladimirovich", "06.08.2001", datacenters);
-//
-//	for (auto dc : DataCenter::get_dclist())
-//		std::cout << dc.get_name() << std::endl;
-//
-//	std::cout << rich.get_goods_info() << std::endl;
-//
-//	Consumer casual("Petrov", "Ivan", "Ivanovich", "05.12.1992", 100000.0, "first", 203393.0);
-//
-//	std::cout << casual.get_goods_info() << std::endl;
-//
-//	std::cout << "Memory before: " << first.get_remains_memory();
-//	std::cout << casual.buy_datacenter_memory("first", 300);
-//	std::cout << "Memory after: " << first.get_remains_memory();
-//
-//
-//	getchar();
-//	getchar();
-//	return 0;
-//}
+int main(void)
+{
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+
+	DataCenter first("first", "St. Petesburg", 200, 28238);
+	DataCenter second("second", "Moscow", 300, 29382);
+
+	std::vector<DataCenter> datacenters = { first, second };
+
+	Owner rich("Vladimir", "Gololobov", "Vladimirovich", "06.08.2001", datacenters);
+
+	Consumer casual("Petrov", "Ivan", "Ivanovich", "05.12.1992", 100000.0, "first", 203393.0);
+
+
+	std::cout << "Fisrt Datacenter:\n";
+	first.info();
+	std::cout << "\n";
+
+	std::cout << "Second Datacenter:\n";
+	second.info();
+	std::cout << "\n";
+
+	std::cout << "Owner:\n";
+	rich.info();
+	std::cout << "\n";
+
+	std::cout << "Consumer:\n";
+	casual.info();
+	std::cout << "\n";
+
+	std::cout << "Покупка памяти: \n";
+	std::cout << casual.buy_datacenter_memory("first", 10);
+	std::cout << std::endl;
+
+
+	//char choice = '.';
+	//char choice2 = '.';
+	//int k = 0;
+	//bool exit = 0, exit1 = 0;
+	//
+	//std::string dc_name;
+	//double memory;
+	//double price_per_gb;
+	//std::string location;
+	//
+	//do
+	//{
+	//	switch (choice)
+	//	{
+	//	case '0':
+	//		exit = 1;
+	//		break;
+	//	case '4':
+	//		k = 1;
+	//		for (auto datacenter : DataCenter::get_dclist())
+	//		{
+	//			std::cout << "Дата центр " << k << ": \n";
+	//			datacenter.info();
+	//			std::cout << "=============================\n";
+	//			k++;
+	//		}
+	//
+	//		std::cout << "1. Добавление датацентра: \n";
+	//		std::cout << "2. Добавление владельца: \n";
+	//		std::cout << "3. Добавление покупателя: \n";
+	//		std::cout << "4. Список датацентров: \n";
+	//		std::cout << "0. Выйти \n";
+	//		std::cin >> choice;
+	//
+	//		break;
+	//
+	//	case '1':
+	//		std::cout << "Введите название датацентра: \n";
+	//		std::cin >> dc_name;
+	//		std::cout << "Введите память датацентра: \n";
+	//		std::cin >> memory;
+	//		std::cout << "Введите цену за гигабайт: \n";
+	//		std::cin >> price_per_gb;
+	//		std::cout << "Введите местоположение: \n";
+	//		std::cin >> location;
+	//		DataCenter::add_dclist(DataCenter(dc_name, location, memory, price_per_gb));
+	//		do
+	//		{
+	//			switch (choice2)
+	//			{
+	//			case '0':
+	//				exit1 = 1;
+	//				break;
+	//			case '1':
+	//				k = 1;
+	//				for (auto datacenter : DataCenter::get_dclist())
+	//				{
+	//					std::cout << "Дата центр " << k << ": \n";
+	//					datacenter.info();
+	//					std::cout << "=============================\n";
+	//					k++;
+	//				}
+	//				std::cout << "1. Продолжить \n";
+	//				std::cout << "0. Выйти \n";
+	//				std::cin >> choice2;
+	//				break;
+	//			default:
+	//				std::cout << "1. Вывод всех датацентров: \n";
+	//				std::cout << "0. Выйти \n";
+	//				std::cin >> choice2;
+	//			}
+	//		} while (!exit1);
+	//		std::cout << "1. Продолжить\n";
+	//		std::cout << "0. Выход\n";
+	//		std::cin >> choice;
+	//		break;
+	//
+	//	default:
+	//		std::cout << "1. Добавление датацентра: \n";
+	//		std::cout << "2. Добавление владельца: \n";
+	//		std::cout << "3. Добавление покупателя: \n";
+	//		std::cout << "4. Список датацентров: \n";
+	//		std::cout << "0. Выйти \n";
+	//		std::cin >> choice;
+	//	}
+	//} while (!exit);
+
+	getchar();
+	getchar();
+	return 0;
+}
