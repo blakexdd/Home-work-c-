@@ -1,0 +1,3 @@
+﻿  System.cpp
+c:\users\gololobov\documents\github\home-work-c-\network_implementing\network_implementing\system.cpp(92): warning C4101: rc: неиспользованная локальная переменная
+  Network_implementing.vcxproj -> C:\Users\Gololobov\Documents\GitHub\Home-work-c-\Network_implementing\Debug\Network_implementing.exe
